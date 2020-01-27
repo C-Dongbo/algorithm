@@ -1,8 +1,6 @@
-mport operator
-class Solution:
-    
+import operator
 
-    
+class Solution:
     def longestPalindrome(self, s: str) -> str:
         
         def isPalindromic(s):
