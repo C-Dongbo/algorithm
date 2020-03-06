@@ -1,5 +1,7 @@
 package leetCode;
 
+import javax.xml.ws.Response;
+
 public class DeepestLeavesSum {
 	
 
@@ -10,12 +12,20 @@ public class DeepestLeavesSum {
 	  TreeNode(int x) { val = x; }
 	}
 	
+	public class Response{
+		int val;
+		int level;
+		public Response(int val, int level) {
+			this.val = val;
+			this.level = level;
+		}
+	}
 	
 	public int deepestLeavesSum(TreeNode root) {
 		int level = 1;
-		Object[] result = calDeepestSum(root, level);
+		Response result = calDeepestSum2(root, level);
 		
-		return (int) result[0];
+		return result.val;
 	}
 	
 	public Object[] calDeepestSum(TreeNode node, int level) {
@@ -33,4 +43,18 @@ public class DeepestLeavesSum {
 		return new Object[] {sum, maxDepth};
 	}
 	
+	public Response calDeepestSum2(TreeNode node, int level) {
+		if (node == null) {
+			level -= 1; 
+			return new Response(0,level);
+		}
+		Response left = calDeepestSum2(node.left, level+1);
+		Response right = calDeepestSum2(node.right, level+1);
+		int maxDepth = Math.max(left.level, right.level);
+		int sum = 0;
+		if (level == maxDepth) sum += node.val;
+		if (left.level == maxDepth) sum += left.val;
+		if (right.level == maxDepth) sum += right.val;
+		return new Response(sum, maxDepth);
+	}
 }
