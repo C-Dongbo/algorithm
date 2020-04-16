@@ -15,7 +15,7 @@ class Solution:
 
         for i in range(1,m):
             for j in range(0,n):
-                memo[i][j]+=memo[i-1][j]
+                memo[i][j] += memo[i-1][j]
 
         for i in range(m):
             for j in range(n):
@@ -26,8 +26,6 @@ class Solution:
                 right_i = min(m-1, i+K)
                 right_j = min(n-1, j+K)
 
-
-
                 result_val = memo[right_i][right_j]
 
                 if left_i > 0:
@@ -35,14 +33,16 @@ class Solution:
                 if left_j > 0: 
                     result_val = result_val - memo[right_i][left_j - 1] 
 
-                result[i][j] = result_val
+                if left_i > 0 and left_j > 0:
+                    result_val = result_val + memo[left_i - 1][left_j - 1]
 
+                result[i][j] = result_val
 
         return result
 
 if __name__=='__main__':
     test = [[1,2,3],[4,5,6],[7,8,9]] 
-    K = 2
+    K = 1
     solution = Solution()
     print(solution.matrixBlockSum(test,K))
     
