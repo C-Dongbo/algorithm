@@ -1,3 +1,4 @@
+@profile
 def quick_sorting(data:list):
     low, high = 0, len(data)-1
     def sort(low, high, data):
@@ -22,6 +23,32 @@ def quick_sorting(data:list):
         return low
 
     return sort(low, high, data)
-if __name__=='__main__':
-    test = [5,4,1,8,6,4,9,6,10]
-    print(quick_sorting(test))
+
+@profile
+def quick_sorting2(data :list):
+    if len(data) <= 1:
+        return data
+    pivot = data[len(data) // 2]
+    lesser_arr, equal_arr, greater_arr = [], [], []
+    for num in data:
+        if num < pivot:
+            lesser_arr.append(num)
+        elif num > pivot:
+            greater_arr.append(num)
+        else:
+            equal_arr.append(num)
+    return quick_sorting2(lesser_arr) + equal_arr + quick_sorting2(greater_arr)    
+
+
+@profile
+def TEST():
+
+    test = [5,4,1,8,6,4,9,6,10,5,4,1,8,6,4,9,6,10,5,4,1,8,6,4,9,6,10,5,4,1,8,6,4,9,6,10,5,4,1,8,6,4,9,6,10,5,4,1,8,6,4,9,6,10,5,4,1,8,6,4,9,6,10,5,4,1,8,6,4,9,6,10,5,4,1,8,6,4,9,6,10,5,4,1,8,6,4,9,6,10,5,4,1,8,6,4,9,6,10,5,4,1,8,6,4,9,6,10,5,4,1,8,6,4,9,6,10,5,4,1,8,6,4,9,6,10,5,4,1,8,6,4,9,6,10,5,4,1,8,6,4,9,6,10]
+    result = quick_sorting(test)
+    result2 = quick_sorting2(test)
+ 
+    print(result, result2)
+ 
+if __name__ == "__main__":
+    TEST()
+
